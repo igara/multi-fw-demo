@@ -24,7 +24,7 @@ packages/shadcn/
 │   ├── components/
 │   │   └── ui/          # UIコンポーネント (Button, Card, Dialog など)
 │   ├── lib/             # ユーティリティ関数
-│   └── styles/          # グローバルスタイル
+│   └── themes/          # テーマファイル (CSS Variables)
 ├── docs/                # ドキュメント
 ├── storybook-static/    # ビルド済みStorybook
 ├── biome.json          # Biomeの設定
@@ -72,8 +72,45 @@ pnpm check
 
 このパッケージは以下をエクスポートしています:
 
-- コンポーネント: `import { Button, Card, Dialog } from '@multi-fw-demo-igarashi/shadcn'`
-- スタイル: `import '@multi-fw-demo-igarashi/shadcn/styles'`
+### コンポーネント
+```typescript
+import { Button, Card, Dialog } from '@multi-fw-demo-igarashi/shadcn'
+```
+
+### テーマ
+プロジェクトで使用するテーマCSSをインポートしてください:
+
+```typescript
+// デフォルトテーマ (グレースケール)
+import '@multi-fw-demo-igarashi/shadcn/default.css'
+
+// ブルーテーマ
+import '@multi-fw-demo-igarashi/shadcn/blue.css'
+
+// グリーンテーマ
+import '@multi-fw-demo-igarashi/shadcn/green.css'
+```
+
+各テーマファイルには以下が含まれます:
+- **Tailwind CSS v4**: ベーススタイルとユーティリティクラス
+- **CSS Variables**: カラー、サイズなどのデザイントークン
+- **ダークモード対応**: `.dark`クラスによる自動切り替え
+- **tw-animate-css**: アニメーションユーティリティ
+
+#### テーマのカスタマイズ
+
+各テーマは`oklch`カラースペースを使用したCSS変数で定義されています。
+必要に応じて`:root`や`.dark`セレクタ内の変数を上書きすることでカスタマイズ可能です。
+
+```css
+:root {
+  --primary: oklch(0.488 0.243 264.376);
+  --primary-foreground: oklch(0.97 0.014 254.604);
+  --radius: 0.65rem;
+  /* その他の変数... */
+}
+```
+
 
 ## 使用技術
 

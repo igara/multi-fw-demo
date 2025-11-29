@@ -11,6 +11,8 @@
     "format:fix": "pnpm --filter './packages/*' --parallel format:fix",
     "storybook": "pnpm --filter shadcn exec storybook dev -p 6101",
     "build-storybook": "pnpm --filter './packages/*' --parallel build-storybook",
+    "watch:site": "pnpm run build && pnpm run sync:site && trap 'kill 0' EXIT; chokidar 'index.html' 'packages/nextjs/out/**' 'packages/shadcn/storybook-static/**' -c 'pnpm run sync:site' & pnpm --filter shadcn build-storybook & pnpm --filter nextjs build & python3 -m http.server 8080 -d _site",
+    "sync:site": "mkdir -p _site/multi-fw-demo && cp index.html _site/multi-fw-demo/ && ([ -d packages/nextjs/out ] && mkdir -p _site/multi-fw-demo/nextjs && cp -r packages/nextjs/out/. _site/multi-fw-demo/nextjs/ || true) && ([ -d packages/shadcn/storybook-static ] && mkdir -p _site/multi-fw-demo/shadcn && cp -r packages/shadcn/storybook-static/. _site/multi-fw-demo/shadcn/ || true)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,5 +23,8 @@
     "node": "24.11.1",
     "pnpm": "10.23.0",
     "npm": "please_use_pnpm_instead"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0"
   }
 }

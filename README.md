@@ -56,6 +56,9 @@ pnpm build
 # Storybookビルド
 pnpm build-storybook
 
+# サイトプレビュー (ローカルHTTPサーバー + ファイル監視)
+pnpm watch:site  # ポート8080でサイト起動、変更を自動同期
+
 # リント
 pnpm lint        # チェックのみ
 pnpm lint:fix    # 自動修正
