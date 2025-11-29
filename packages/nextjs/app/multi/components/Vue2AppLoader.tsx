@@ -61,22 +61,6 @@ export function Vue2AppLoader() {
           const shadowStyle = document.createElement("style");
           shadowStyle.textContent = cssText;
           shadowRoot.appendChild(shadowStyle);
-
-          // document全体にもCSS変数を適用（グローバル登録）
-          try {
-            const win = window as typeof window & {
-              __vue2AppCssInjected?: boolean;
-            };
-            if (!win.__vue2AppCssInjected) {
-              win.__vue2AppCssInjected = true;
-              const globalStyle = document.createElement("style");
-              globalStyle.textContent = cssText;
-              globalStyle.setAttribute("data-vue2-app-styles", "true");
-              document.head.appendChild(globalStyle);
-            }
-          } catch (e) {
-            console.warn("CSS のグローバル登録に失敗しました", e);
-          }
         }
 
         // Vue2のスクリプトを読み込む
