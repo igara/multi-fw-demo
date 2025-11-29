@@ -8,7 +8,7 @@
       "path": "packages/shadcn"
     },
     {
-      "path": "packages/applications/nextjs"
+      "path": "packages/nextjs"
     }
   ]
 }
