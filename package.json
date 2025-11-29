@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "pnpm --filter './packages/*' --parallel dev",
+    "dev": "pnpm --filter shadcn dev & pnpm --filter nextjs exec next dev -p 3101",
     "build": "pnpm --filter './packages/*' --parallel build",
     "lint": "pnpm --filter './packages/*' --parallel lint",
     "lint:fix": "pnpm --filter './packages/*' --parallel lint:fix",
     "format": "pnpm --filter './packages/*' --parallel format",
     "format:fix": "pnpm --filter './packages/*' --parallel format:fix",
+    "storybook": "pnpm --filter shadcn exec storybook dev -p 6101",
     "build-storybook": "pnpm --filter './packages/*' --parallel build-storybook",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
