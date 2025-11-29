@@ -1,5 +1,9 @@
 # @multi-fw-demo-igarashi/shadcn
 
+[![npm version](https://img.shields.io/npm/v/@multi-fw-demo-igarashi/shadcn.svg)](https://www.npmjs.com/package/@multi-fw-demo-igarashi/shadcn)
+[![npm downloads](https://img.shields.io/npm/dm/@multi-fw-demo-igarashi/shadcn.svg)](https://www.npmjs.com/package/@multi-fw-demo-igarashi/shadcn)
+[![license](https://img.shields.io/npm/l/@multi-fw-demo-igarashi/shadcn.svg)](https://github.com/igara/multi-fw-demo/blob/main/LICENSE)
+
 ## 概要
 
 shadcn/uiをベースとしたReact UIコンポーネントライブラリパッケージです。再利用可能なコンポーネントを提供し、複数のフレームワークで利用できるようにビルドされています。
