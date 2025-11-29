@@ -17,9 +17,13 @@ const routes: Array<RouteConfig> = [
   }
 ]
 
-const basePath = window.location.pathname.startsWith('/multi-fw-demo/nextjs')
-  ? '/multi-fw-demo/nextjs/'
-  : '/multi-fw-demo/vue2/'
+let basePath = '/multi-fw-demo/vue2/';
+if (window.location.pathname.startsWith('/multi-fw-demo/nextjs')) {
+  basePath = '/multi-fw-demo/nextjs/';
+}
+if (window.location.pathname.startsWith('/multi-fw-demo/react')) {
+  basePath = '/multi-fw-demo/react/';
+}
 
 const router = new VueRouter({
   mode: 'history',

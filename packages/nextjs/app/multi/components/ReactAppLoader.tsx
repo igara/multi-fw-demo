@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function Vue2AppLoader() {
-  const cssPath = "/multi-fw-demo/vue2/assets/index.css";
-  const scriptPath = "/multi-fw-demo/vue2/assets/index.js";
+export function ReactAppLoader() {
+  // 修正: react/assets/index.cssを使用（blue.cssを含む）
+  const cssPath = "/multi-fw-demo/react/assets/index.css";
+  const scriptPath = "/multi-fw-demo/react/assets/index.js";
   const containerRef = useRef<HTMLDivElement>(null);
   const shadowRootRef = useRef<ShadowRoot | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,12 +18,12 @@ export function Vue2AppLoader() {
     const shadowRoot = containerRef.current.attachShadow({ mode: "open" });
     shadowRootRef.current = shadowRoot;
 
-    // Vue2アプリのコンテナを作成
+    // Reactアプリのコンテナを作成
     const appContainer = document.createElement("div");
-    appContainer.id = "vue2-app";
+    appContainer.id = "react-app";
     shadowRoot.appendChild(appContainer);
 
-    const initializeVue2App = async () => {
+    const initializeReactApp = async () => {
       try {
         // スタイルを読み込む
         const cssResponse = await fetch(cssPath);
@@ -42,10 +43,10 @@ export function Vue2AppLoader() {
             // document全体にも@propertyを適用（グローバル登録）
             try {
               const win = window as typeof window & {
-                __vue2AppPropsInjected?: boolean;
+                __reactAppPropsInjected?: boolean;
               };
-              if (!win.__vue2AppPropsInjected) {
-                win.__vue2AppPropsInjected = true;
+              if (!win.__reactAppPropsInjected) {
+                win.__reactAppPropsInjected = true;
                 if (document.adoptedStyleSheets) {
                   const globalPropSheet = new CSSStyleSheet();
                   await globalPropSheet.replace(properties.join("\n"));
@@ -61,39 +62,23 @@ export function Vue2AppLoader() {
           const shadowStyle = document.createElement("style");
           shadowStyle.textContent = cssText;
           shadowRoot.appendChild(shadowStyle);
-
-          // document全体にもCSS変数を適用（グローバル登録）
-          try {
-            const win = window as typeof window & {
-              __vue2AppCssInjected?: boolean;
-            };
-            if (!win.__vue2AppCssInjected) {
-              win.__vue2AppCssInjected = true;
-              const globalStyle = document.createElement("style");
-              globalStyle.textContent = cssText;
-              globalStyle.setAttribute("data-vue2-app-styles", "true");
-              document.head.appendChild(globalStyle);
-            }
-          } catch (e) {
-            console.warn("CSS のグローバル登録に失敗しました", e);
-          }
         }
 
-        // Vue2のスクリプトを読み込む
+        // Reactのスクリプトを読み込む
         const script = document.createElement("script");
         script.type = "module";
         script.src = scriptPath;
 
         script.onload = () => {
-          // window.mountVue2Appが利用可能になるまで待つ
+          // window.mountReactAppが利用可能になるまで待つ
           const checkAndMount = () => {
-            if (typeof window.mountVue2App === "function") {
+            if (typeof window.mountReactApp === "function") {
               try {
-                window.mountVue2App(appContainer);
+                window.mountReactApp(appContainer);
                 setIsLoading(false);
               } catch (err) {
-                console.error("Failed to mount Vue2 app:", err);
-                setError("Vue2アプリのマウントに失敗しました");
+                console.error("Failed to mount React app:", err);
+                setError("Reactアプリのマウントに失敗しました");
                 setIsLoading(false);
               }
             } else {
@@ -104,19 +89,19 @@ export function Vue2AppLoader() {
         };
 
         script.onerror = () => {
-          setError("Vue2スクリプトの読み込みに失敗しました");
+          setError("Reactスクリプトの読み込みに失敗しました");
           setIsLoading(false);
         };
 
         document.body.appendChild(script);
       } catch (err) {
-        console.error("Failed to initialize Vue2 app:", err);
-        setError("Vue2アプリの初期化に失敗しました");
+        console.error("Failed to initialize React app:", err);
+        setError("Reactアプリの初期化に失敗しました");
         setIsLoading(false);
       }
     };
 
-    initializeVue2App();
+    initializeReactApp();
 
     return () => {
       // クリーンアップ
@@ -131,7 +116,7 @@ export function Vue2AppLoader() {
     <div className="border rounded-lg p-4 bg-white shadow-lg">
       {isLoading && (
         <div className="text-center py-8">
-          <p>Vue2アプリを読み込み中...</p>
+          <p>Reactアプリを読み込み中...</p>
         </div>
       )}
       {error && (
@@ -146,6 +131,6 @@ export function Vue2AppLoader() {
 
 declare global {
   interface Window {
-    mountVue2App: (container: HTMLElement) => void;
+    mountReactApp: (container: HTMLElement) => void;
   }
 }

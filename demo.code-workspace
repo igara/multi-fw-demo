@@ -12,6 +12,9 @@
     },
     {
       "path": "packages/vue2"
+    },
+    {
+      "path": "packages/react"
     }
   ]
 }

@@ -11,8 +11,8 @@
     "format:fix": "pnpm --filter './packages/*' --parallel format:fix",
     "storybook": "pnpm --filter shadcn exec storybook dev -p 6101",
     "build-storybook": "pnpm --filter './packages/*' --parallel build-storybook",
-    "watch:site": "pnpm run build && pnpm run sync:site && trap 'kill 0' EXIT; chokidar 'index.html' 'packages/nextjs/out/**' 'packages/shadcn/storybook-static/**' 'packages/vue2/dist/**' -c 'pnpm run sync:site' & pnpm --filter shadcn build-storybook & pnpm --filter nextjs build & pnpm --filter vue2 build & python3 -m http.server 8080 -d _site",
-    "sync:site": "mkdir -p _site/multi-fw-demo && cp index.html _site/multi-fw-demo/ && ([ -d packages/nextjs/out ] && mkdir -p _site/multi-fw-demo/nextjs && cp -r packages/nextjs/out/. _site/multi-fw-demo/nextjs/ || true) && ([ -d packages/shadcn/storybook-static ] && mkdir -p _site/multi-fw-demo/shadcn && cp -r packages/shadcn/storybook-static/. _site/multi-fw-demo/shadcn/ || true) && ([ -d packages/vue2/dist ] && mkdir -p _site/multi-fw-demo/vue2 && cp -r packages/vue2/dist/. _site/multi-fw-demo/vue2/ || true)",
+    "watch:site": "pnpm run build && pnpm run sync:site && trap 'kill 0' EXIT; chokidar 'index.html' 'packages/nextjs/out/**' 'packages/shadcn/storybook-static/**' 'packages/vue2/dist/**' 'packages/react/dist/**' -c 'pnpm run sync:site' & pnpm --filter shadcn build-storybook & pnpm --filter nextjs build & pnpm --filter vue2 build & pnpm --filter react build & python3 -m http.server 8080 -d _site",
+    "sync:site": "mkdir -p _site/multi-fw-demo && cp index.html _site/multi-fw-demo/ && ([ -d packages/nextjs/out ] && mkdir -p _site/multi-fw-demo/nextjs && cp -r packages/nextjs/out/. _site/multi-fw-demo/nextjs/ || true) && ([ -d packages/shadcn/storybook-static ] && mkdir -p _site/multi-fw-demo/shadcn && cp -r packages/shadcn/storybook-static/. _site/multi-fw-demo/shadcn/ || true) && ([ -d packages/vue2/dist ] && mkdir -p _site/multi-fw-demo/vue2 && cp -r packages/vue2/dist/. _site/multi-fw-demo/vue2/ || true) && ([ -d packages/react/dist ] && mkdir -p _site/multi-fw-demo/react && cp -r packages/react/dist/. _site/multi-fw-demo/react/ || true)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -26,5 +26,11 @@
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "18.3.27",
+      "@types/react-dom": "18.3.5"
+    }
   }
 }
