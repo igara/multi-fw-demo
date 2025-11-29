@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@multi-fw-demo-igarashi/shadcn": "^1.0.5",
+    "@multi-fw-demo/shared-state": "workspace:*",
     "next": "16.0.5",
     "react": "19.2.0",
     "react-dom": "19.2.0"

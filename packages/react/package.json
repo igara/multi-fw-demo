@@ -20,7 +20,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "@tanstack/react-router": "^1.62.0",
-    "@multi-fw-demo-igarashi/shadcn": "^1.0.5"
+    "@multi-fw-demo-igarashi/shadcn": "^1.0.5",
+    "@multi-fw-demo/shared-state": "workspace:*"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.8",

@@ -21,6 +21,9 @@ importers:
       '@multi-fw-demo-igarashi/shadcn':
         specifier: ^1.0.5
         version: 1.0.5(@types/react-dom@18.3.5(@types/react@18.3.27))(@types/react@18.3.27)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@multi-fw-demo/shared-state':
+        specifier: workspace:*
+        version: link:../shared-state
       next:
         specifier: 16.0.5
         version: 16.0.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -70,6 +73,9 @@ importers:
       '@multi-fw-demo-igarashi/shadcn':
         specifier: ^1.0.5
         version: 1.0.5(@types/react-dom@18.3.5(@types/react@18.3.27))(@types/react@18.3.27)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@multi-fw-demo/shared-state':
+        specifier: workspace:*
+        version: link:../shared-state
       '@tanstack/react-router':
         specifier: ^1.62.0
         version: 1.139.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -208,8 +214,26 @@ importers:
         specifier: ^4.5.4
         version: 4.5.4(@types/node@24.10.1)(rollup@4.53.3)(typescript@5.9.3)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6))
 
+  packages/shared-state:
+    devDependencies:
+      '@types/react':
+        specifier: 18.3.27
+        version: 18.3.27
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vue:
+        specifier: ^2.7.16
+        version: 2.7.16
+
   packages/vue2:
     dependencies:
+      '@multi-fw-demo/shared-state':
+        specifier: workspace:*
+        version: link:../shared-state
       vue:
         specifier: ^2.7.16
         version: 2.7.16

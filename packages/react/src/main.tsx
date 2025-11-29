@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { Index } from "./routes/index";
 import { Multi } from "./routes/multi";
+import { MultiCounter } from "./routes/multi_counter";
 import { routeTree } from "./routeTree.gen";
 
 let basePath = "/multi-fw-demo/react/";
@@ -25,10 +26,15 @@ const multiRoute = createRoute({
   path: "multi.html",
   component: Multi,
 });
+const counterRoute = createRoute({
+  getParentRoute: () => routeTree,
+  path: "multi_counter.html",
+  component: MultiCounter,
+});
 
 // Create a new router instance
 const router = createRouter({
-  routeTree: routeTree.addChildren([indexRoute, multiRoute]),
+  routeTree: routeTree.addChildren([indexRoute, multiRoute, counterRoute]),
   basepath: basePath,
 });
 
@@ -43,10 +49,21 @@ declare module "@tanstack/react-router" {
 declare global {
   interface Window {
     mountReactApp: (container: HTMLElement) => void;
+    mountReactCounterApp: (container: HTMLElement) => void;
   }
 }
 
 window.mountReactApp = (container: HTMLElement) => {
+  const root = ReactDOM.createRoot(container);
+  root.render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>
+  );
+};
+
+// カウンター専用のマウント関数
+window.mountReactCounterApp = (container: HTMLElement) => {
   const root = ReactDOM.createRoot(container);
   root.render(
     <StrictMode>

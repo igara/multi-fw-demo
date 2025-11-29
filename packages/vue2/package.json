@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "vue": "^2.7.16",
-    "vue-router": "^3.6.5"
+    "vue-router": "^3.6.5",
+    "@multi-fw-demo/shared-state": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
