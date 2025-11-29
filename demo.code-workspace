@@ -9,6 +9,9 @@
     },
     {
       "path": "packages/nextjs"
+    },
+    {
+      "path": "packages/vue2"
     }
   ]
 }

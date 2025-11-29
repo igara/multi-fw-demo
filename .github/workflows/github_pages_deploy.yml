@@ -49,6 +49,7 @@ jobs:
           mkdir -p _site
           cp index.html _site/
           cp -r packages/nextjs/out _site/nextjs
+          cp -r packages/vue2/dist _site/vue2
           cp -r packages/shadcn/storybook-static _site/shadcn
 
       - name: Setup Pages

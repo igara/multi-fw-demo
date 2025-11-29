@@ -1,0 +1,14 @@
+{
+  // ESLint設定
+  "eslint.enable": true,
+
+  // 保存時のアクション
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // ファイル設定
+  "files.insertFinalNewline": true,
+  "files.eol": "\n",
+  "editor.renderControlCharacters": true
+}

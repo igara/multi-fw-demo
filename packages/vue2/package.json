@@ -1,0 +1,27 @@
+{
+  "name": "@multi-fw-demo/vue2",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "vue": "^2.7.16",
+    "vue-router": "^3.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@vitejs/plugin-vue2": "^2.3.1",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "eslint": "^8.55.0",
+    "eslint-plugin-vue": "^9.19.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vue-template-compiler": "^2.7.16"
+  }
+}
