@@ -41,11 +41,15 @@ jobs:
       - name: Build Next.js
         run: pnpm build
 
+      - name: Build Storybook
+        run: pnpm build-storybook
+
       - name: Prepare deployment directory
         run: |
           mkdir -p _site
           cp index.html _site/
           cp -r packages/nextjs/out _site/nextjs
+          cp -r packages/shadcn/storybook-static _site/shadcn
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
