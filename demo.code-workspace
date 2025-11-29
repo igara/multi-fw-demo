@@ -6,6 +6,9 @@
     },
     {
       "path": "packages/shadcn"
+    },
+    {
+      "path": "packages/applications/nextjs"
     }
   ]
 }
