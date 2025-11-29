@@ -1,0 +1,24 @@
+{
+  "name": "multi-fw-demo",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "pnpm --filter './packages/*' --parallel dev",
+    "build": "pnpm --filter './packages/*' --parallel build",
+    "lint": "pnpm --filter './packages/*' --parallel lint",
+    "lint:fix": "pnpm --filter './packages/*' --parallel lint:fix",
+    "format": "pnpm --filter './packages/*' --parallel format",
+    "format:fix": "pnpm --filter './packages/*' --parallel format:fix",
+    "build-storybook": "pnpm --filter './packages/*' --parallel build-storybook",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.23.0",
+  "engines": {
+    "node": "24.11.1",
+    "pnpm": "10.23.0",
+    "npm": "please_use_pnpm_instead"
+  }
+}

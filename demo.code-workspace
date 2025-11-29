@@ -1,0 +1,11 @@
+{
+  "folders": [
+    {
+      "path": "./",
+      "name": "multi-fw-demo"
+    },
+    {
+      "path": "packages/shadcn"
+    }
+  ]
+}
