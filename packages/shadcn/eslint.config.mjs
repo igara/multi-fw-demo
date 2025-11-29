@@ -23,7 +23,7 @@ export default [
     settings: {
       "better-tailwindcss": {
         // Tailwind CSS v4の場合: CSSエントリーポイント
-        entryPoint: "src/styles/globals.css",
+        entryPoint: "src/themes/default.css",
         // Tailwind CSS v3の場合: 設定ファイル
         // tailwindConfig: "tailwind.config.js",
       },
