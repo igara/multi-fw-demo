@@ -1,0 +1,52 @@
+name: Release shadcn to GitHub Packages
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    # shadcnタグのリリースのみ実行
+    if: startsWith(github.event.release.tag_name, 'shadcn-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+          version: 10.23.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: './package.json'
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build shadcn package
+        run: pnpm --filter shadcn build
+
+      - name: Update package version
+        run: |
+          VERSION=${GITHUB_REF_NAME#shadcn-v}
+          cd packages/shadcn
+          pnpm version $VERSION --no-git-tag-version
+
+      - name: Publish to npm
+        run: |
+          cd packages/shadcn
+          pnpm publish --no-git-checks --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

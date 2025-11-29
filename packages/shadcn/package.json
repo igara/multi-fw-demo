@@ -1,8 +1,16 @@
 {
-  "name": "@multi-fw-demo/shadcn",
+  "name": "@multi-fw-demo-igarashi/shadcn",
   "version": "1.0.0",
   "description": "Shadcn UI component library",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igara/multi-fw-demo.git",
+    "directory": "packages/shadcn"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
