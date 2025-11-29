@@ -40,7 +40,8 @@ jobs:
 
       - name: Update package version
         run: |
-          VERSION=${GITHUB_REF_NAME#shadcn-v}
+          VERSION=${{ github.event.release.tag_name }}
+          VERSION=${VERSION#shadcn-v}
           cd packages/shadcn
           pnpm version $VERSION --no-git-tag-version
 
