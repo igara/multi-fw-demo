@@ -36,7 +36,7 @@ export default Vue.extend({
   data() {
     return {
       counter: 0,
-      _unsubscribe: null as (() => void) | null
+      unsubscribe: null as (() => void) | null
     }
   },
   created() {
@@ -51,13 +51,13 @@ export default Vue.extend({
     }
     
     // 変更を監視
-    this._unsubscribe = store.subscribe('counter', (newValue: number) => {
+    this.unsubscribe = store.subscribe('counter', (newValue: number) => {
       this.counter = newValue
     })
   },
   beforeDestroy() {
-    if (this._unsubscribe) {
-      this._unsubscribe()
+    if (this.unsubscribe) {
+      this.unsubscribe()
     }
   },
   methods: {
