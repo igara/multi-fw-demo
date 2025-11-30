@@ -18,7 +18,8 @@ export default Vue.extend({
   name: 'CounterApp',
   data() {
     return {
-      counter: 0
+      counter: 0,
+      _unsubscribe: null as (() => void) | null
     }
   },
   created() {
