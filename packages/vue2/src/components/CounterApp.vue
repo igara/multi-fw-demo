@@ -1,11 +1,28 @@
 <template>
   <div class="counter-container">
     <h2>Shared Counter (Vue2 App)</h2>
-    <div class="counter-value">Count: {{ counter }}</div>
+    <div class="counter-value">
+      Count: {{ counter }}
+    </div>
     <div class="counter-buttons">
-      <button @click="incrementCounter" class="btn btn-primary">Increment</button>
-      <button @click="decrementCounter" class="btn btn-secondary">Decrement</button>
-      <button @click="resetCounter" class="btn btn-outline">Reset</button>
+      <button
+        class="btn btn-primary"
+        @click="incrementCounter"
+      >
+        Increment
+      </button>
+      <button
+        class="btn btn-secondary"
+        @click="decrementCounter"
+      >
+        Decrement
+      </button>
+      <button
+        class="btn btn-outline"
+        @click="resetCounter"
+      >
+        Reset
+      </button>
     </div>
   </div>
 </template>
