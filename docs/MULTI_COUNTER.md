@@ -6,6 +6,102 @@
 
 `multi_counter` ページは、異なるフレームワークで構築されたアプリケーション間でグローバルステートを共有するデモです。各アプリケーションはShadowRootで分離されていますが、`@multi-fw-demo/shared-state` パッケージを通じて同じカウンター値を共有し、リアルタイムで同期します。
 
+## 状態共有の仕組み
+
+```mermaid
+graph TB
+    subgraph "Browser Window"
+        Window["window object (グローバル)"]
+        
+        subgraph "ShadowRoot #1"
+            Vue2["Vue2 Counter App"]
+            VueStore["SharedStateStore インスタンス"]
+            Vue2 -->|"store.set(counter, value)"| VueStore
+            VueStore -->|"store.subscribe(counter, callback)"| Vue2
+        end
+        
+        subgraph "ShadowRoot #2"
+            React["React Counter App"]
+            ReactStore["SharedStateStore インスタンス"]
+            React -->|"useSharedState(counter)"| ReactStore
+            ReactStore -->|"useSyncExternalStore"| React
+        end
+        
+        subgraph "Light DOM"
+            Next["Next.js (shadcn Counter)"]
+            NextStore["SharedStateStore インスタンス"]
+            Next -->|"useSharedState(counter)"| NextStore
+            NextStore -->|"useSyncExternalStore"| Next
+        end
+        
+        VueStore -->|"window.dispatchEvent(shared-state-update)"| Window
+        ReactStore -->|"window.dispatchEvent(shared-state-update)"| Window
+        NextStore -->|"window.dispatchEvent(shared-state-update)"| Window
+        
+        Window -->|"window.addEventListener(shared-state-update)"| VueStore
+        Window -->|"window.addEventListener(shared-state-update)"| ReactStore
+        Window -->|"window.addEventListener(shared-state-update)"| NextStore
+    end
+
+    style Window fill:#f9f,stroke:#333,stroke-width:4px
+    style Vue2 fill:#42b883,stroke:#333,stroke-width:2px,text-decoration:underline
+    style React fill:#61dafb,stroke:#333,stroke-width:2px,text-decoration:underline
+    style Next fill:#000,stroke:#333,stroke-width:2px,color:#fff,text-decoration:underline
+    style VueStore text-decoration:underline
+    style ReactStore text-decoration:underline
+    style NextStore text-decoration:underline
+
+    click Vue2 href "https://github.com/igara/multi-fw-demo/blob/main/packages/vue2/src/components/CounterApp.vue"
+    click VueStore href "https://github.com/igara/multi-fw-demo/blob/main/packages/shared-state/src/vue2.ts"
+    click React href "https://github.com/igara/multi-fw-demo/blob/main/packages/react/src/routes/multi_counter.tsx"
+    click ReactStore href "https://github.com/igara/multi-fw-demo/blob/main/packages/shared-state/src/react.ts"
+    click Next href "https://github.com/igara/multi-fw-demo/blob/main/packages/nextjs/app/multi_counter/components/ShadcnCounter.tsx"
+    click NextStore href "https://github.com/igara/multi-fw-demo/blob/main/packages/shared-state/src/react.ts"
+```
+
+### データフロー
+
+1. **ユーザーアクション**: いずれかのアプリ(Vue2/React/Next.js)でカウンターボタンをクリック
+2. **ローカル更新**: そのアプリの`SharedStateStore`インスタンスが状態を更新
+3. **グローバル通知**: `window.dispatchEvent()`でCustomEventを発火
+4. **クロスコンテキスト同期**: すべてのShadowRoot内の`SharedStateStore`が`window.addEventListener()`でイベントを受信
+5. **UI更新**: 各フレームワークの仕組み(Vue2のリアクティブシステム、ReactのuseSyncExternalStore)でUIが自動更新
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Vue2 as Vue2 App
+    participant VueStore as SharedStateStore<br/>(Vue2)
+    participant Window as window object
+    participant ReactStore as SharedStateStore<br/>(React)
+    participant React as React App
+    participant NextStore as SharedStateStore<br/>(Next.js)
+    participant Next as Next.js App
+
+    User->>Vue2: Click Increment Button
+    Vue2->>VueStore: store.set(counter, newValue)
+    VueStore->>VueStore: Update internal state
+    VueStore->>Vue2: Notify local listeners
+    VueStore->>Window: dispatchEvent(shared-state-update)
+    
+    Window->>ReactStore: EventListener triggered
+    ReactStore->>ReactStore: Update internal state
+    ReactStore->>React: Trigger useSyncExternalStore
+    React->>React: Re-render with new value
+    
+    Window->>NextStore: EventListener triggered
+    NextStore->>NextStore: Update internal state
+    NextStore->>Next: Trigger useSyncExternalStore
+    Next->>Next: Re-render with new value
+
+    click Vue2 href "https://github.com/igara/multi-fw-demo/blob/main/packages/vue2/src/components/CounterApp.vue"
+    click VueStore href "https://github.com/igara/multi-fw-demo/blob/main/packages/shared-state/src/vue2.ts"
+    click React href "https://github.com/igara/multi-fw-demo/blob/main/packages/react/src/routes/multi_counter.tsx"
+    click ReactStore href "https://github.com/igara/multi-fw-demo/blob/main/packages/shared-state/src/react.ts"
+    click Next href "https://github.com/igara/multi-fw-demo/blob/main/packages/nextjs/app/multi_counter/components/ShadcnCounter.tsx"
+    click NextStore href "https://github.com/igara/multi-fw-demo/blob/main/packages/shared-state/src/react.ts"
+```
+
 ## アーキテクチャ
 
 ### 1. Shared State Store (`@multi-fw-demo/shared-state`)
