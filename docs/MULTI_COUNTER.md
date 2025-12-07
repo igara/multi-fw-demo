@@ -50,13 +50,6 @@ graph TB
     style VueStore text-decoration:underline
     style ReactStore text-decoration:underline
     style NextStore text-decoration:underline
-
-    click Vue2 href "https://github.com/igara/multi-fw-demo/blob/main/packages/vue2/src/components/CounterApp.vue"
-    click VueStore href "https://github.com/igara/multi-fw-demo/blob/main/packages/shared-state/src/vue2.ts"
-    click React href "https://github.com/igara/multi-fw-demo/blob/main/packages/react/src/routes/multi_counter.tsx"
-    click ReactStore href "https://github.com/igara/multi-fw-demo/blob/main/packages/shared-state/src/react.ts"
-    click Next href "https://github.com/igara/multi-fw-demo/blob/main/packages/nextjs/app/multi_counter/components/ShadcnCounter.tsx"
-    click NextStore href "https://github.com/igara/multi-fw-demo/blob/main/packages/shared-state/src/react.ts"
 ```
 
 ### データフロー
